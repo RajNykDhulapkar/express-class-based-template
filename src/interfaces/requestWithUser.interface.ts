@@ -1,8 +1,9 @@
-import { Request } from 'express';
-import User from 'users/user.interface';
+import { Request } from "express";
+import User from "../user/user.interface";
+import RequestWithIO from "./requestWithIO.interface";
 
-interface RequestWithUser extends Request {
-  user: User;
+interface RequestWithUser extends RequestWithIO {
+    user: User;
 }
 
 export default RequestWithUser;
