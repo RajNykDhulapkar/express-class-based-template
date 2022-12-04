@@ -8,10 +8,10 @@ function createLoggerMiddleware() {
         response.on("finish", function () {
             logger.log(
                 `${clc.cyan("[" + request.method + "]")} ${decodeURI(request.url)} ${clc.yellow(
-                    response.statusCode
+                    response.statusCode,
                 )} ${response.statusMessage} ${response.get("Content-Length") || 0} - ${clc.green(
-                    response.get("x-Response-Time")
-                )}`
+                    response.get("x-Response-Time"),
+                )}`,
             );
         });
         next();

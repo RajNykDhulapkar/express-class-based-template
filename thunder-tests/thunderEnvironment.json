@@ -1,0 +1,25 @@
+[
+  {
+    "_id": "63729355-75a9-482a-94e7-20f77eec35c0",
+    "name": "(Global Env)",
+    "default": false,
+    "global": true,
+    "sortNum": -2,
+    "created": "2022-12-03T19:45:51.461Z",
+    "modified": "2022-12-03T19:45:51.461Z",
+    "data": [
+      {
+        "name": "host",
+        "value": "http://localhost:8080"
+      },
+      {
+        "name": "userId",
+        "value": "638bda265155ba0abe7a4491"
+      },
+      {
+        "name": "accessToken",
+        "value": ""
+      }
+    ]
+  }
+]

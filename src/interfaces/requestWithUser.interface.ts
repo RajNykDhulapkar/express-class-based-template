@@ -1,5 +1,5 @@
 import { Request } from "express";
-import User from "../user/user.interface";
+import User from "../modules/user/user.interface";
 import RequestWithIO from "./requestWithIO.interface";
 
 interface RequestWithUser extends RequestWithIO {

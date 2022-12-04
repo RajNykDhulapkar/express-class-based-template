@@ -1,19 +1,23 @@
 import { Request, Response, NextFunction, Router } from "express";
-import PostNotFoundException from "../exceptions/PostNotFoundException";
-import Controller from "../interfaces/controller.interface";
-import RequestWithUser from "../interfaces/requestWithUser.interface";
-import authMiddleware from "../middleware/auth.middleware";
-import validationMiddleware from "../middleware/validation.middleware";
-import CreatePostDto from "./post.dto";
-import Post from "./post.interface";
+import mongoose from "mongoose";
+import PostNotFoundException from "../../exceptions/PostNotFoundException";
+import Controller from "../../interfaces/controller.interface";
+import RequestWithUser from "../../interfaces/requestWithUser.interface";
+import authMiddleware from "../../middleware/auth.middleware";
+import validationMiddleware from "../../middleware/validation.middleware";
+import CreatePostDto from "./dtos/post.dto";
+import Post from "./interfaces/post.interface";
 import postModel from "./post.model";
+import PostService, { IPostService } from "./post.service";
 
 class PostController implements Controller {
-    public path = "/posts";
+    public path = "/api/post";
     public router = Router();
     private post = postModel;
+    private readonly postService: IPostService;
 
-    constructor() {
+    constructor(private readonly _postService: IPostService) {
+        this.postService = _postService;
         this.initializeRoutes();
     }
 
@@ -28,13 +32,13 @@ class PostController implements Controller {
     }
 
     private getAllPosts = async (request: Request, response: Response) => {
-        const posts = await this.post.find().populate("author", "-password");
+        const posts = await this.postService.getAll();
         response.send(posts);
     };
 
     private getPostById = async (request: Request, response: Response, next: NextFunction) => {
         const id = request.params.id;
-        const post = await this.post.findById(id);
+        const post = await this.postService.getById(id);
         if (post) {
             response.send(post);
         } else {
@@ -45,7 +49,7 @@ class PostController implements Controller {
     private modifyPost = async (request: Request, response: Response, next: NextFunction) => {
         const id = request.params.id;
         const postData: Post = request.body;
-        const post = await this.post.findByIdAndUpdate(id, postData, { new: true });
+        const post = await this.postService.update(id, postData);
         if (post) {
             response.send(post);
         } else {
@@ -55,13 +59,9 @@ class PostController implements Controller {
 
     private createPost = async (request: RequestWithUser, response: Response) => {
         const postData: CreatePostDto = request.body;
-        const createdPost = new this.post({
-            ...postData,
-            author: request.user._id,
-        });
-        const savedPost = await createdPost.save();
-        await savedPost.populate("author", "-password");
-        response.send(savedPost);
+        const authorId = request.user._id;
+        const createdPost = await this.postService.create(postData, authorId);
+        response.send(createdPost);
     };
 
     private deletePost = async (request: Request, response: Response, next: NextFunction) => {

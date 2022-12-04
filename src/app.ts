@@ -3,6 +3,8 @@ import * as cookieParser from "cookie-parser";
 import * as express from "express";
 import * as mongoose from "mongoose";
 import * as http from "http";
+import * as swaggerUi from "swagger-ui-express";
+import * as swaggerJsdoc from "swagger-jsdoc";
 import Controller from "./interfaces/controller.interface";
 import errorMiddleware from "./middleware/error.middleware";
 import { Server } from "socket.io";
@@ -10,7 +12,8 @@ import * as cors from "cors";
 import loggerMiddleware from "./middleware/logger.middleware";
 import * as responseTime from "response-time";
 import Logger from "./utils/logger";
-import RequestWithIO from "interfaces/requestWithIO.interface";
+import RequestWithIO from "./interfaces/requestWithIO.interface";
+import swaggerJsdocConfig from "./config/swaggerJsdoc.config";
 class App {
     public app: express.Application;
     public server: http.Server;
@@ -71,7 +74,7 @@ class App {
                 methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
                 allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
                 optionsSuccessStatus: 200,
-            })
+            }),
         );
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -83,6 +86,14 @@ class App {
             req.io = this.io;
             next();
         });
+
+        this.app.use(
+            "/docs",
+            swaggerUi.serve,
+            swaggerUi.setup(swaggerJsdoc(swaggerJsdocConfig), {
+                explorer: true,
+            }),
+        );
     }
 
     private initializeErrorHandling() {

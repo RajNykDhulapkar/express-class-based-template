@@ -6,19 +6,20 @@ import Controller from "../interfaces/controller.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken";
 import TokenData from "../interfaces/tokenData.interface";
 import validationMiddleware from "../middleware/validation.middleware";
-import CreateUserDto from "../user/user.dto";
-import User from "../user/user.interface";
-import userModel from "./../user/user.model";
-import AuthenticationService from "./authentication.service";
-import LogInDto from "./logIn.dto";
+import CreateUserDto from "../modules/user/dtos/user.dto";
+import User from "../modules/user/user.interface";
+import userModel from "../modules/user/user.model";
+import AuthenticationService, { IAuthenticationService } from "./authentication.service";
+import LogInDto from "./dtos/logIn.dto";
 
 class AuthenticationController implements Controller {
-    public path = "/auth";
+    public path = "/api/auth";
     public router = Router();
-    public authenticationService = new AuthenticationService();
     private user = userModel;
+    private readonly authenticationService: IAuthenticationService;
 
-    constructor() {
+    constructor(private readonly _authenticationService: IAuthenticationService) {
+        this.authenticationService = _authenticationService;
         this.initializeRoutes();
     }
 
@@ -26,7 +27,7 @@ class AuthenticationController implements Controller {
         this.router.post(
             `${this.path}/register`,
             validationMiddleware(CreateUserDto),
-            this.registration
+            this.registration,
         );
         this.router.post(`${this.path}/login`, validationMiddleware(LogInDto), this.loggingIn);
         this.router.post(`${this.path}/logout`, this.loggingOut);
@@ -49,7 +50,7 @@ class AuthenticationController implements Controller {
         if (user) {
             const isPasswordMatching = await bcrypt.compare(
                 logInData.password,
-                user.get("password", null, { getters: false })
+                user.get("password", null, { getters: false }),
             );
             if (isPasswordMatching) {
                 const tokenData = this.createToken(user);

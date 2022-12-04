@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "colName": "rest-api",
+    "created": "2022-12-03T19:45:01.872Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "4c72d98b-d804-44af-9c0b-4e7fcf6929c0",
+        "name": "post",
+        "containerId": "",
+        "created": "2022-12-03T19:45:22.148Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "af2419ab-3cd2-4154-bdd1-3dec752e1f9c",
+        "name": "user",
+        "containerId": "",
+        "created": "2022-12-03T23:15:13.289Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "f2462d6b-df3e-446f-9ab9-01ede686acb6",
+        "name": "authentication",
+        "containerId": "",
+        "created": "2022-12-03T23:15:58.511Z",
+        "sortNum": 30000
+      }
+    ]
+  }
+]

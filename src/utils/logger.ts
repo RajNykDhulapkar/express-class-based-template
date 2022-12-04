@@ -11,7 +11,7 @@ class Logger extends Console {
         const timestamp = new Date().toISOString().replace(/T/, " ").replace(/\..+/, "");
         super.log(
             `${clc.cyan("[" + timestamp + "]")} - ${clc.yellow(this.name)}  ${message}`,
-            ...optionalParams
+            ...optionalParams,
         );
     }
 
@@ -22,7 +22,7 @@ class Logger extends Console {
 
         super.warn(
             `${clc.cyan("[" + timestamp + "]")} - ${clc.red(this.name)}  ${message}`,
-            ...optionalParams
+            ...optionalParams,
         );
     }
 

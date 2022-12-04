@@ -1,0 +1,125 @@
+[
+  {
+    "_id": "e5b32694-cc40-4966-94f3-b82a44506e3c",
+    "colId": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "containerId": "4c72d98b-d804-44af-9c0b-4e7fcf6929c0",
+    "name": "get all post",
+    "url": "{{host}}/api/post",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-12-03T19:45:31.523Z",
+    "modified": "2022-12-03T19:46:22.876Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "92de8306-a5bd-42e8-9505-6e888bcfaa13",
+    "colId": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "containerId": "4c72d98b-d804-44af-9c0b-4e7fcf6929c0",
+    "name": "get post by id",
+    "url": "{{host}}/api/post/{id}",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-12-03T19:50:06.780Z",
+    "modified": "2022-12-03T19:50:47.260Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "id",
+        "value": "",
+        "isPath": true
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "ce8dfdd3-a8e7-487b-9d67-22d97dc392c5",
+    "colId": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "containerId": "4c72d98b-d804-44af-9c0b-4e7fcf6929c0",
+    "name": "create post ",
+    "url": "{{host}}/api/post/",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2022-12-03T19:51:08.624Z",
+    "modified": "2022-12-03T23:08:24.763Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"title\": \"Generic Blog Post Title\",\n  \"content\": \"Generic Blog Post Content\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "dcd868a9-e4b8-4dda-b5c0-7a07717a1a54",
+    "colId": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "containerId": "af2419ab-3cd2-4154-bdd1-3dec752e1f9c",
+    "name": "get user by id",
+    "url": "{{host}}/api/user/{id}",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2022-12-03T23:15:20.737Z",
+    "modified": "2022-12-03T23:34:07.394Z",
+    "headers": [
+      {
+        "name": "Cookie",
+        "value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhiZGEyNjUxNTViYTBhYmU3YTQ0OTEiLCJpYXQiOjE2NzAxMTAzNDcsImV4cCI6MTY3MDExMzk0N30.fJuPcpJi6WtMZxu9TNbzY_p4zsb8tb1R2iH0yIt28OQ;"
+      }
+    ],
+    "params": [
+      {
+        "name": "id",
+        "value": "{{userId}}",
+        "isPath": true
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "5304b754-9a94-41da-8db0-8749dd994c3c",
+    "colId": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "containerId": "f2462d6b-df3e-446f-9ab9-01ede686acb6",
+    "name": "register user",
+    "url": "{{host}}/api/auth/register",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2022-12-03T23:16:09.248Z",
+    "modified": "2022-12-03T23:19:39.678Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"johndoe@example.com\",\n  \"password\": \"password\",\n  \"address\": {\n    \"street\": \"123 Main Street\",\n    \"city\": \"Rochester\",\n    \"country\": \"United States Of America\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b9816db4-a3dc-4792-836e-1278ef444f4d",
+    "colId": "e37de494-0f5a-42da-939a-50e37b35e465",
+    "containerId": "f2462d6b-df3e-446f-9ab9-01ede686acb6",
+    "name": "login user",
+    "url": "{{host}}/api/auth/login",
+    "method": "POST",
+    "sortNum": 60000,
+    "created": "2022-12-03T23:23:58.577Z",
+    "modified": "2022-12-03T23:36:09.946Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"johndoe@example.com\",\n  \"password\": \"password\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "Set-Cookie",
+        "action": "setto",
+        "value": "{{accessToken}}"
+      }
+    ]
+  }
+]

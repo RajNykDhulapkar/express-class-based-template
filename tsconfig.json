@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "target": "es2017",
-        "outDir": "./dist",
-        "baseUrl": "./src",
-        "alwaysStrict": true,
-        "noImplicitAny": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "paths": {
-            "@project/app/modules/*": ["src/modules/*"]
-        }
-    },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "es2017",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }
